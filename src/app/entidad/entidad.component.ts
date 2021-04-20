@@ -79,6 +79,7 @@ export class EntidadComponent implements OnInit {
   }
 
   cargarProfesor(id: number){
+    this.dataSource2.data = [];
     this.entidadService.getProfesor(id).subscribe(profesor => { this.dataSource.data = this.buscarCurso(profesor.asignaturas)});
   }
 

@@ -323,6 +323,10 @@
                     </tr>
                 </table>
             </ng-container>
+            <ng-container *ngIf="dataSource.data.length == 0">
+                <h3>El profesor seleccionado no tiene asignaturas</h3>
+                
+            </ng-container>
 
             <br><br>
 
@@ -352,6 +356,7 @@
                     </tr>
                 </table>
             </ng-container>
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
