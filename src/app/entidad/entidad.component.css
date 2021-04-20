@@ -1,0 +1,13 @@
+
+.card-header-blue{
+    background-color: rgb(65, 125, 236);
+}
+
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }

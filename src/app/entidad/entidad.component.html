@@ -1,0 +1,362 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-6">
+                <h4>Seleccione la entidad</h4>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Entidad</mat-label>
+                        <mat-select [(ngModel)]="this.entidad" (selectionChange)="seleccionObj($event.value)" name="food">
+                        <mat-option *ngFor="let obj of objects" [value]="obj.value">
+                            {{obj.nombre}}
+                        </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
+        <div *ngIf="this.entidad != 0" class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" [ngClass]="{'card-header-danger': this.entidad==1, 'card-header-primary': this.entidad==2, 'card-header-success': this.entidad==3, 'card-header-rose': this.entidad==4, 'card-header-warning': this.entidad==5}">
+                        <h4 class="card-title">CRUD {{this.entidadTitle}}</h4>
+                        <p class="card-category">Informacion</p>
+                    </div>
+                    <div class="card-body">
+                        <form *ngIf="this.entidad == 1">
+                            <div class="row">
+                                <div class="col-md-4">
+                                  <mat-form-field class="example-full-width">
+                                      <input [(ngModel)]="this.objEstudiante.nombre"  matInput placeholder="Nombre" name="nombreEst">
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+                     
+                        </form>
+
+                        <form *ngIf="this.entidad == 2">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <!---->
+                                  <mat-form-field class="example-full-width">
+
+                                      <mat-label>Colegio</mat-label>
+                                        <mat-select [(ngModel)]="this.objCurso.colegio.codigo"  name="colegioCur">
+                                        <mat-option *ngFor="let col of colegios" [value]="col.codigo">
+                                            {{col.nombre}}
+                                        </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    
+                                </div>
+                                <div class="col-md-3">
+                                    <mat-form-field class="example-full-width">
+                                      <input [(ngModel)]="this.objCurso.grado" matInput placeholder="Grado" name="gradoCur" type="number">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                      <input [(ngModel)]="this.objCurso.salon" matInput placeholder="Salon" name="salonCur">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                     
+                        </form>
+
+                        <form *ngIf="this.entidad == 3">
+                            <div class="row">
+                                <div class="col-md-5">
+                                  <mat-form-field class="example-full-width">
+                                      <input [(ngModel)]="this.objAsignatura.nombre" matInput placeholder="Nombre" name="nombreAsig">
+                                    </mat-form-field>
+                                </div>
+
+                                <!--
+                                <div class="col-md-3">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Profesor</mat-label>
+                                        <mat-select [(ngModel)]="this.objAsignatura.profesor"  name="profesorAsig">
+                                        <mat-option *ngFor="let prof of profesores" [value]="prof.codigo">
+                                            {{prof.nombre}}
+                                        </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Curso</mat-label>
+                                        <mat-select [(ngModel)]="this.objAsignatura.curso"  name="cursoAsig">
+                                        <mat-option *ngFor="let cur of cursos" [value]="cur.codigo">
+                                            {{cur.grado}} - {{cur.salon}}
+                                        </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>-->
+                            </div>
+                     
+                        </form>
+
+                        <form *ngIf="this.entidad == 4">
+                            <div class="row">
+                                <div class="col-md-5">
+                                  <mat-form-field class="example-full-width">
+                                      <input [(ngModel)]="this.objDocente.nombre" matInput placeholder="Nombre" name="nombreDoc">
+                                    </mat-form-field>
+                                </div>
+   
+                            </div>
+  
+                        </form>
+
+                        <form *ngIf="this.entidad == 5">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input [(ngModel)]="this.objColegio.nombre" matInput placeholder="Nombre" name="nombreEst">
+                                      </mat-form-field>
+                                </div>
+
+                            </div>
+
+                        </form>
+
+                        <button mat-raised-button type="button" (click)="registrarEntidad()" class="btn btn-success pull-right">CREAR {{this.entidadTitle}}</button>
+                        <div class="clearfix"></div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-blue">
+                        <h4 class="card-title ">LISTADO DE {{this.entidadTitle}}</h4>
+                        <p class="card-category"></p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table *ngIf="this.entidad == 1" class="table">
+                                <thead class=" text-primary">
+                                    <th>
+                                        ID
+                                    </th>
+                                    <th>
+                                        Nombre
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let estu of estudiantes">
+                                        <td>
+                                            {{estu.codigo}}
+                                        </td>
+                                        <td>
+                                            {{estu.nombre}}
+                                        </td>   
+                                    </tr>
+                               
+                                </tbody>
+                            </table>
+
+                            <table *ngIf="this.entidad == 2" class="table">
+                                <thead class=" text-primary">
+                                    <th>
+                                        ID
+                                    </th>
+                                    <th>
+                                        Grado
+                                    </th>
+                                    <th>
+                                        Salon
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let cur of cursos">
+                                        <td>
+                                            {{cur.codigo}}
+                                        </td>
+                                        <td>
+                                            {{cur.grado}}
+                                        </td> 
+                                        <td>
+                                            {{cur.salon}}
+                                        </td> 
+                                    </tr>
+                               
+                                </tbody>
+                            </table>
+
+                            <table *ngIf="this.entidad == 3" class="table">
+                                <thead class=" text-primary">
+                                    <th>
+                                        ID
+                                    </th>
+                                    <th>
+                                        Nombre
+                                    </th>
+ 
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let asig of asignaturas">
+                                        <td>
+                                            {{asig.codigo}}
+                                        </td>
+                                        <td>
+                                            {{asig.nombre}}
+                                        </td> 
+ 
+                                    </tr>
+                               
+                                </tbody>
+                            </table>
+
+                            <table *ngIf="this.entidad == 4" class="table">
+                                <thead class=" text-primary">
+                                    <th>
+                                        ID
+                                    </th>
+                                    <th>
+                                        Nombre
+                                    </th>
+                                    <th>
+                                        Asignaturas
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let prof of profesores">
+                                        <td>
+                                            {{prof.codigo}}
+                                        </td>
+                                        <td>
+                                            {{prof.nombre}}
+                                        </td>  
+                                        <td>
+                                            <button data-toggle="modal" data-target="#myModal" mat-raised-button type="button" (click)="cargarProfesor(prof.codigo)" class="btn btn-info">VER</button>
+                                        </td>  
+                                    </tr>
+                               
+                                </tbody>
+                            </table>
+
+
+                            <table *ngIf="this.entidad == 5" class="table">
+                                <thead class=" text-primary">
+                                    <th>
+                                        ID
+                                    </th>
+                                    <th>
+                                        Nombre
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let col of colegios">
+                                        <td>
+                                            {{col.codigo}}
+                                        </td>
+                                        <td>
+                                            {{col.nombre}}
+                                        </td>   
+                                    </tr>
+                               
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+   
+    </div>
+  </div>
+  
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <ng-container *ngIf="dataSource.data.length > 0">
+                <mat-form-field>
+                    <mat-label>Asignaturas</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Buscar Asignatura" #input>
+                </mat-form-field> 
+                
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                
+                    <ng-container  matColumnDef="codigo">
+                        <th mat-header-cell *matHeaderCellDef> codigo </th>
+                        <td mat-cell *matCellDef="let element"> {{element.codigo}} </td>                           
+                    </ng-container>
+                    <ng-container  matColumnDef="nombre">
+                        <th mat-header-cell *matHeaderCellDef> nombre </th>
+                        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>                           
+                    </ng-container>
+                    <ng-container  matColumnDef="curso">
+                        <th mat-header-cell *matHeaderCellDef> curso </th>
+                        <td mat-cell *matCellDef="let element"> {{element.curso}} </td>                           
+                    </ng-container>
+                    <ng-container matColumnDef="Estudiantes">
+                        <th mat-header-cell *matHeaderCellDef> Estudiantes </th>
+                        <td mat-cell *matCellDef="let element"> 
+                             <button mat-raised-button type="button" (click)="verEstudiantes(element.estudiantes)" class="btn btn-info">VER</button>
+                        </td>
+            
+                    </ng-container>
+                
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                
+                    <!-- Row shown when there is no matching data. -->
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                    </tr>
+                </table>
+            </ng-container>
+
+            <br><br>
+
+            <ng-container *ngIf="dataSource2.data.length > 0">
+                <mat-form-field>
+                    <mat-label>Estudiantes</mat-label>
+                    <input matInput (keyup)="applyFilter2($event)" placeholder="Buscar Estudiante" #input>
+                </mat-form-field> 
+                
+                <table mat-table [dataSource]="dataSource2" class="mat-elevation-z8">
+                
+                    <ng-container  matColumnDef="codigo">
+                        <th mat-header-cell *matHeaderCellDef> codigo </th>
+                        <td mat-cell *matCellDef="let element"> {{element.codigo}} </td>                           
+                    </ng-container>
+                    <ng-container  matColumnDef="nombre">
+                        <th mat-header-cell *matHeaderCellDef> nombre </th>
+                        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>                           
+                    </ng-container>
+                
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+                
+                    <!-- Row shown when there is no matching data. -->
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                    </tr>
+                </table>
+            </ng-container>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
